@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <h2 class="mb-4">
+
+            {% if athlete %}
+                Modifier Athlète
+            {% else %}
+                Nouvel Athlète
+            {% endif %}
+
+        </h2>
+
+        <form method="post">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Nom</label>
+
+                    <input
+                        type="text"
+                        name="nom"
+                        class="form-control"
+                        value="{{ athlete.nom if athlete else '' }}"
+                        required>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Prénom</label>
+
+                    <input
+                        type="text"
+                        name="prenom"
+                        class="form-control"
+                        value="{{ athlete.prenom if athlete else '' }}"
+                        required>
+
+                </div>
+
+                <div class="col-md-3 mb-3">
+
+                    <label>Sexe</label>
+
+                    <select
+                        name="sexe"
+                        class="form-select">
+
+                        <option value="H">Homme</option>
+                        <option value="F">Femme</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-3 mb-3">
+
+                    <label>Discipline</label>
+
+                    <input
+                        type="text"
+                        name="discipline"
+                        class="form-control">
+
+                </div>
+
+                <div class="col-md-3 mb-3">
+
+                    <label>Catégorie</label>
+
+                    <input
+                        type="text"
+                        name="categorie"
+                        class="form-control">
+
+                </div>
+
+                <div class="col-md-3 mb-3">
+
+                    <label>Niveau</label>
+
+                    <input
+                        type="text"
+                        name="niveau"
+                        class="form-control">
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Club</label>
+
+                    <select
+                        name="club_id"
+                        class="form-select">
+
+                        {% for club in clubs %}
+
+                        <option value="{{ club.id }}">
+
+                            {{ club.nom }}
+
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Province</label>
+
+                    <input
+                        type="text"
+                        name="province"
+                        class="form-control">
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Date de naissance</label>
+
+                    <input
+                        type="text"
+                        name="date_naissance"
+                        class="form-control">
+
+                </div>
+
+            </div>
+
+            <button
+                class="btn btn-success">
+
+                Enregistrer
+
+            </button>
+
+            <a href="/athletes"
+               class="btn btn-secondary">
+
+                Annuler
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

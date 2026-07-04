@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_a8ed4c1880cbf15f3a519fffdf10b991 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_a8ed4c1880cbf15f3a519fffdf10b991" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_a8ed4c1880cbf15f3a519fffdf10b991 = L.map(
+                "map_a8ed4c1880cbf15f3a519fffdf10b991",
+                {
+                    center: [-0.7, 11.6],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_c8ed892d65722dde63ca4e0fb1f8264b = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_c8ed892d65722dde63ca4e0fb1f8264b.addTo(map_a8ed4c1880cbf15f3a519fffdf10b991);
+        
+    
+            var marker_cluster_71ba615dc0966f83babfdef456b26033 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_7627ea85aae1bd83599ecfee4c5d2dc8 = L.marker(
+                [-0.7193, 8.7815],
+                {
+}
+            ).addTo(marker_cluster_71ba615dc0966f83babfdef456b26033);
+        
+    
+            var div_icon_f0bb0ce8944768021e26df025cff3465 = L.divIcon({
+  "html": "\n        \u003cdiv style=\"text-align:center;\"\u003e\n\n            \u003cdiv style=\"\n                width:55px;\n                height:55px;\n                border-radius:50%;\n                overflow:hidden;\n                border:3px solid white;\n                box-shadow:0 0 8px rgba(0,0,0,0.5);\n                margin:auto;\n            \"\u003e\n\n                \u003cimg\n                    src=\"http://127.0.0.1:8000/static/photos/9a8bf51c-f04c-4c7a-ae6c-6e3916d57079.png\"\n                    width=\"55\"\n                    height=\"55\"\n                    style=\"object-fit:cover;\"\u003e\n\n            \u003c/div\u003e\n\n            \u003cdiv style=\"\n                background:white;\n                padding:2px 4px;\n                border-radius:5px;\n                font-size:10px;\n                font-weight:bold;\n                margin-top:2px;\n                white-space:nowrap;\n            \"\u003e\n                MBOULA \n            \u003c/div\u003e\n\n        \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+        var popup_d86158034b63d5665ed68ff769f6646e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_13c4fc1ed654c5642da155be06e411dc = $(`<div id="html_13c4fc1ed654c5642da155be06e411dc" style="width: 100.0%; height: 100.0%;">         <div style="width:220px">              <img                 src="http://127.0.0.1:8000/static/photos/9a8bf51c-f04c-4c7a-ae6c-6e3916d57079.png"                 width="180"                 height="180"                 style="                     object-fit:cover;                     border-radius:10px;                     margin-bottom:10px;                 ">              <h5>                 MBOULA  Kevin Junior             </h5>              <b>Discipline :</b>             FOOTBALL             <br>              <b>Province :</b>             Ogooué-Maritime             <br>              <b>Niveau :</b>             National             <br>              <b>Date naissance :</b>             22/07/1995          </div>         </div>`)[0];
+                popup_d86158034b63d5665ed68ff769f6646e.setContent(html_13c4fc1ed654c5642da155be06e411dc);
+            
+        
+
+        marker_7627ea85aae1bd83599ecfee4c5d2dc8.bindPopup(popup_d86158034b63d5665ed68ff769f6646e)
+        ;
+
+        
+    
+    
+                marker_7627ea85aae1bd83599ecfee4c5d2dc8.setIcon(div_icon_f0bb0ce8944768021e26df025cff3465);
+            
+    
+            var marker_83958e57c015159617df4f406590cff3 = L.marker(
+                [0.3901, 9.4544],
+                {
+}
+            ).addTo(marker_cluster_71ba615dc0966f83babfdef456b26033);
+        
+    
+            var div_icon_2cb9221507e06f94273b662f63ab2a6a = L.divIcon({
+  "html": "\n        \u003cdiv style=\"text-align:center;\"\u003e\n\n            \u003cdiv style=\"\n                width:55px;\n                height:55px;\n                border-radius:50%;\n                overflow:hidden;\n                border:3px solid white;\n                box-shadow:0 0 8px rgba(0,0,0,0.5);\n                margin:auto;\n            \"\u003e\n\n                \u003cimg\n                    src=\"http://127.0.0.1:8000/static/photos/photo_2.png\"\n                    width=\"55\"\n                    height=\"55\"\n                    style=\"object-fit:cover;\"\u003e\n\n            \u003c/div\u003e\n\n            \u003cdiv style=\"\n                background:white;\n                padding:2px 4px;\n                border-radius:5px;\n                font-size:10px;\n                font-weight:bold;\n                margin-top:2px;\n                white-space:nowrap;\n            \"\u003e\n                NZE\n            \u003c/div\u003e\n\n        \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+        var popup_62b947bd9ece5976e71b28ba9f57bdc7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_864eac1179b1e443848dc1f94c361773 = $(`<div id="html_864eac1179b1e443848dc1f94c361773" style="width: 100.0%; height: 100.0%;">         <div style="width:220px">              <img                 src="http://127.0.0.1:8000/static/photos/photo_2.png"                 width="180"                 height="180"                 style="                     object-fit:cover;                     border-radius:10px;                     margin-bottom:10px;                 ">              <h5>                 NZE Arnaud Thierry             </h5>              <b>Discipline :</b>             BASKETBALL             <br>              <b>Province :</b>             Estuaire             <br>              <b>Niveau :</b>             National             <br>              <b>Date naissance :</b>             11/01/1992          </div>         </div>`)[0];
+                popup_62b947bd9ece5976e71b28ba9f57bdc7.setContent(html_864eac1179b1e443848dc1f94c361773);
+            
+        
+
+        marker_83958e57c015159617df4f406590cff3.bindPopup(popup_62b947bd9ece5976e71b28ba9f57bdc7)
+        ;
+
+        
+    
+    
+                marker_83958e57c015159617df4f406590cff3.setIcon(div_icon_2cb9221507e06f94273b662f63ab2a6a);
+            
+    
+            var marker_49a87c77ff58b205e9e012bb1eed84d8 = L.marker(
+                [1.5995, 11.5793],
+                {
+}
+            ).addTo(marker_cluster_71ba615dc0966f83babfdef456b26033);
+        
+    
+            var div_icon_858b452b2200783a6fc77646c1763155 = L.divIcon({
+  "html": "\n        \u003cdiv style=\"text-align:center;\"\u003e\n\n            \u003cdiv style=\"\n                width:55px;\n                height:55px;\n                border-radius:50%;\n                overflow:hidden;\n                border:3px solid white;\n                box-shadow:0 0 8px rgba(0,0,0,0.5);\n                margin:auto;\n            \"\u003e\n\n                \u003cimg\n                    src=\"http://127.0.0.1:8000/static/photos/photo_3.png\"\n                    width=\"55\"\n                    height=\"55\"\n                    style=\"object-fit:cover;\"\u003e\n\n            \u003c/div\u003e\n\n            \u003cdiv style=\"\n                background:white;\n                padding:2px 4px;\n                border-radius:5px;\n                font-size:10px;\n                font-weight:bold;\n                margin-top:2px;\n                white-space:nowrap;\n            \"\u003e\n                OBAME\n            \u003c/div\u003e\n\n        \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+        var popup_b8542632c4c11203b9757beda2949c26 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d5a1b35179c11b8bcb82960bbe8b7591 = $(`<div id="html_d5a1b35179c11b8bcb82960bbe8b7591" style="width: 100.0%; height: 100.0%;">         <div style="width:220px">              <img                 src="http://127.0.0.1:8000/static/photos/photo_3.png"                 width="180"                 height="180"                 style="                     object-fit:cover;                     border-radius:10px;                     margin-bottom:10px;                 ">              <h5>                 OBAME Serge Alain             </h5>              <b>Discipline :</b>             HANDBALL             <br>              <b>Province :</b>             Woleu-Ntem             <br>              <b>Niveau :</b>             National             <br>              <b>Date naissance :</b>             03/09/1990          </div>         </div>`)[0];
+                popup_b8542632c4c11203b9757beda2949c26.setContent(html_d5a1b35179c11b8bcb82960bbe8b7591);
+            
+        
+
+        marker_49a87c77ff58b205e9e012bb1eed84d8.bindPopup(popup_b8542632c4c11203b9757beda2949c26)
+        ;
+
+        
+    
+    
+                marker_49a87c77ff58b205e9e012bb1eed84d8.setIcon(div_icon_858b452b2200783a6fc77646c1763155);
+            
+    
+            var marker_cee70ffaaa71bedbf972cc6e56384a04 = L.marker(
+                [-1.1333, 12.4833],
+                {
+}
+            ).addTo(marker_cluster_71ba615dc0966f83babfdef456b26033);
+        
+    
+            var div_icon_a70b6a4b46bd56c226aafc491bbc316b = L.divIcon({
+  "html": "\n        \u003cdiv style=\"text-align:center;\"\u003e\n\n            \u003cdiv style=\"\n                width:55px;\n                height:55px;\n                border-radius:50%;\n                overflow:hidden;\n                border:3px solid white;\n                box-shadow:0 0 8px rgba(0,0,0,0.5);\n                margin:auto;\n            \"\u003e\n\n                \u003cimg\n                    src=\"http://127.0.0.1:8000/static/photos/photo_4.png\"\n                    width=\"55\"\n                    height=\"55\"\n                    style=\"object-fit:cover;\"\u003e\n\n            \u003c/div\u003e\n\n            \u003cdiv style=\"\n                background:white;\n                padding:2px 4px;\n                border-radius:5px;\n                font-size:10px;\n                font-weight:bold;\n                margin-top:2px;\n                white-space:nowrap;\n            \"\u003e\n                MICKOTO\n            \u003c/div\u003e\n\n        \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+        var popup_2ddd0b4c4e5bdb7c02bda8dcb0319c4a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d5b88ec9e0279a5662d5c7de0779f10d = $(`<div id="html_d5b88ec9e0279a5662d5c7de0779f10d" style="width: 100.0%; height: 100.0%;">         <div style="width:220px">              <img                 src="http://127.0.0.1:8000/static/photos/photo_4.png"                 width="180"                 height="180"                 style="                     object-fit:cover;                     border-radius:10px;                     margin-bottom:10px;                 ">              <h5>                 MICKOTO Brice Landry             </h5>              <b>Discipline :</b>             FOOTBALL             <br>              <b>Province :</b>             Ogooué-Lolo             <br>              <b>Niveau :</b>             National             <br>              <b>Date naissance :</b>             17/05/1998          </div>         </div>`)[0];
+                popup_2ddd0b4c4e5bdb7c02bda8dcb0319c4a.setContent(html_d5b88ec9e0279a5662d5c7de0779f10d);
+            
+        
+
+        marker_cee70ffaaa71bedbf972cc6e56384a04.bindPopup(popup_2ddd0b4c4e5bdb7c02bda8dcb0319c4a)
+        ;
+
+        
+    
+    
+                marker_cee70ffaaa71bedbf972cc6e56384a04.setIcon(div_icon_a70b6a4b46bd56c226aafc491bbc316b);
+            
+    
+            var marker_fc0dcb268aec397303c6cc18371557f0 = L.marker(
+                [-2.9333, 10.9833],
+                {
+}
+            ).addTo(marker_cluster_71ba615dc0966f83babfdef456b26033);
+        
+    
+            var div_icon_613329789462ff457e80db9448fd85d9 = L.divIcon({
+  "html": "\n        \u003cdiv style=\"text-align:center;\"\u003e\n\n            \u003cdiv style=\"\n                width:55px;\n                height:55px;\n                border-radius:50%;\n                overflow:hidden;\n                border:3px solid white;\n                box-shadow:0 0 8px rgba(0,0,0,0.5);\n                margin:auto;\n            \"\u003e\n\n                \u003cimg\n                    src=\"http://127.0.0.1:8000/static/photos/photo_7.png\"\n                    width=\"55\"\n                    height=\"55\"\n                    style=\"object-fit:cover;\"\u003e\n\n            \u003c/div\u003e\n\n            \u003cdiv style=\"\n                background:white;\n                padding:2px 4px;\n                border-radius:5px;\n                font-size:10px;\n                font-weight:bold;\n                margin-top:2px;\n                white-space:nowrap;\n            \"\u003e\n                EKOUMOU\n            \u003c/div\u003e\n\n        \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+        var popup_3664fa871b09362610855aab72429761 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cc8a2ff4821c96b94568021a2cad7ae2 = $(`<div id="html_cc8a2ff4821c96b94568021a2cad7ae2" style="width: 100.0%; height: 100.0%;">         <div style="width:220px">              <img                 src="http://127.0.0.1:8000/static/photos/photo_7.png"                 width="180"                 height="180"                 style="                     object-fit:cover;                     border-radius:10px;                     margin-bottom:10px;                 ">              <h5>                 EKOUMOU Diane Laure             </h5>              <b>Discipline :</b>             VOLLEYBALL             <br>              <b>Province :</b>             Nyanga             <br>              <b>Niveau :</b>             National             <br>              <b>Date naissance :</b>             28/12/2000          </div>         </div>`)[0];
+                popup_3664fa871b09362610855aab72429761.setContent(html_cc8a2ff4821c96b94568021a2cad7ae2);
+            
+        
+
+        marker_fc0dcb268aec397303c6cc18371557f0.bindPopup(popup_3664fa871b09362610855aab72429761)
+        ;
+
+        
+    
+    
+                marker_fc0dcb268aec397303c6cc18371557f0.setIcon(div_icon_613329789462ff457e80db9448fd85d9);
+            
+    
+            var marker_f36544895b97d5cc9d6462ce3a0d7fa0 = L.marker(
+                [1.5995, 11.5793],
+                {
+}
+            ).addTo(marker_cluster_71ba615dc0966f83babfdef456b26033);
+        
+    
+            var div_icon_53a12cf35ccd40b4821f792bd8189848 = L.divIcon({
+  "html": "\n        \u003cdiv style=\"text-align:center;\"\u003e\n\n            \u003cdiv style=\"\n                width:55px;\n                height:55px;\n                border-radius:50%;\n                overflow:hidden;\n                border:3px solid white;\n                box-shadow:0 0 8px rgba(0,0,0,0.5);\n                margin:auto;\n            \"\u003e\n\n                \u003cimg\n                    src=\"http://127.0.0.1:8000/static/photos/photo_8.png\"\n                    width=\"55\"\n                    height=\"55\"\n                    style=\"object-fit:cover;\"\u003e\n\n            \u003c/div\u003e\n\n            \u003cdiv style=\"\n                background:white;\n                padding:2px 4px;\n                border-radius:5px;\n                font-size:10px;\n                font-weight:bold;\n                margin-top:2px;\n                white-space:nowrap;\n            \"\u003e\n                MBOUMBA\n            \u003c/div\u003e\n\n        \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+        var popup_c05a1972984c6d0fac7d3b64b5a264bb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a7e34d3cf683f8c19a26611b96321ad9 = $(`<div id="html_a7e34d3cf683f8c19a26611b96321ad9" style="width: 100.0%; height: 100.0%;">         <div style="width:220px">              <img                 src="http://127.0.0.1:8000/static/photos/photo_8.png"                 width="180"                 height="180"                 style="                     object-fit:cover;                     border-radius:10px;                     margin-bottom:10px;                 ">              <h5>                 MBOUMBA Carine Ruth             </h5>              <b>Discipline :</b>             HANDBALL             <br>              <b>Province :</b>             Woleu-Ntem             <br>              <b>Niveau :</b>             National             <br>              <b>Date naissance :</b>             06/06/1997          </div>         </div>`)[0];
+                popup_c05a1972984c6d0fac7d3b64b5a264bb.setContent(html_a7e34d3cf683f8c19a26611b96321ad9);
+            
+        
+
+        marker_f36544895b97d5cc9d6462ce3a0d7fa0.bindPopup(popup_c05a1972984c6d0fac7d3b64b5a264bb)
+        ;
+
+        
+    
+    
+                marker_f36544895b97d5cc9d6462ce3a0d7fa0.setIcon(div_icon_53a12cf35ccd40b4821f792bd8189848);
+            
+    
+            var marker_6f7a1dfe3e2f57de2ad8e06147ff82dc = L.marker(
+                [0.5667, 12.8667],
+                {
+}
+            ).addTo(marker_cluster_71ba615dc0966f83babfdef456b26033);
+        
+    
+            var div_icon_297de962e689c0b9002354c8082a186d = L.divIcon({
+  "html": "\n        \u003cdiv style=\"text-align:center;\"\u003e\n\n            \u003cdiv style=\"\n                width:55px;\n                height:55px;\n                border-radius:50%;\n                overflow:hidden;\n                border:3px solid white;\n                box-shadow:0 0 8px rgba(0,0,0,0.5);\n                margin:auto;\n            \"\u003e\n\n                \u003cimg\n                    src=\"http://127.0.0.1:8000/static/photos/photo_5.png\"\n                    width=\"55\"\n                    height=\"55\"\n                    style=\"object-fit:cover;\"\u003e\n\n            \u003c/div\u003e\n\n            \u003cdiv style=\"\n                background:white;\n                padding:2px 4px;\n                border-radius:5px;\n                font-size:10px;\n                font-weight:bold;\n                margin-top:2px;\n                white-space:nowrap;\n            \"\u003e\n                ONANGA\n            \u003c/div\u003e\n\n        \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+        var popup_0750228dccf9e40fa486bd4fe60b2931 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8230a22bed5b01dee509f2e36d8946e3 = $(`<div id="html_8230a22bed5b01dee509f2e36d8946e3" style="width: 100.0%; height: 100.0%;">         <div style="width:220px">              <img                 src="http://127.0.0.1:8000/static/photos/photo_5.png"                 width="180"                 height="180"                 style="                     object-fit:cover;                     border-radius:10px;                     margin-bottom:10px;                 ">              <h5>                 ONANGA Patrick Joel             </h5>              <b>Discipline :</b>             BOXE             <br>              <b>Province :</b>             Moyen-Ogooué             <br>              <b>Niveau :</b>             National             <br>              <b>Date naissance :</b>             19/03/1993          </div>         </div>`)[0];
+                popup_0750228dccf9e40fa486bd4fe60b2931.setContent(html_8230a22bed5b01dee509f2e36d8946e3);
+            
+        
+
+        marker_6f7a1dfe3e2f57de2ad8e06147ff82dc.bindPopup(popup_0750228dccf9e40fa486bd4fe60b2931)
+        ;
+
+        
+    
+    
+                marker_6f7a1dfe3e2f57de2ad8e06147ff82dc.setIcon(div_icon_297de962e689c0b9002354c8082a186d);
+            
+    
+            var marker_8fe556581d6cc63e63e7e50666e015b1 = L.marker(
+                [-1.8667, 11.05],
+                {
+}
+            ).addTo(marker_cluster_71ba615dc0966f83babfdef456b26033);
+        
+    
+            var div_icon_76c4156769b638ff9f4c307ff71b27ed = L.divIcon({
+  "html": "\n        \u003cdiv style=\"text-align:center;\"\u003e\n\n            \u003cdiv style=\"\n                width:55px;\n                height:55px;\n                border-radius:50%;\n                overflow:hidden;\n                border:3px solid white;\n                box-shadow:0 0 8px rgba(0,0,0,0.5);\n                margin:auto;\n            \"\u003e\n\n                \u003cimg\n                    src=\"http://127.0.0.1:8000/static/photos/photo_6.png\"\n                    width=\"55\"\n                    height=\"55\"\n                    style=\"object-fit:cover;\"\u003e\n\n            \u003c/div\u003e\n\n            \u003cdiv style=\"\n                background:white;\n                padding:2px 4px;\n                border-radius:5px;\n                font-size:10px;\n                font-weight:bold;\n                margin-top:2px;\n                white-space:nowrap;\n            \"\u003e\n                OKANA\n            \u003c/div\u003e\n\n        \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+        var popup_c41a5189f638825bcef977e057cfc368 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4788d81958ee78fa04be2ead2e02c09f = $(`<div id="html_4788d81958ee78fa04be2ead2e02c09f" style="width: 100.0%; height: 100.0%;">         <div style="width:220px">              <img                 src="http://127.0.0.1:8000/static/photos/photo_6.png"                 width="180"                 height="180"                 style="                     object-fit:cover;                     border-radius:10px;                     margin-bottom:10px;                 ">              <h5>                 OKANA Franck Ulrich             </h5>              <b>Discipline :</b>             KARATE             <br>              <b>Province :</b>             Ngounié             <br>              <b>Niveau :</b>             National             <br>              <b>Date naissance :</b>             25/08/1989          </div>         </div>`)[0];
+                popup_c41a5189f638825bcef977e057cfc368.setContent(html_4788d81958ee78fa04be2ead2e02c09f);
+            
+        
+
+        marker_8fe556581d6cc63e63e7e50666e015b1.bindPopup(popup_c41a5189f638825bcef977e057cfc368)
+        ;
+
+        
+    
+    
+                marker_8fe556581d6cc63e63e7e50666e015b1.setIcon(div_icon_76c4156769b638ff9f4c307ff71b27ed);
+            
+    
+            var marker_1e66c69777d3265bd7351d8ad14b4904 = L.marker(
+                [-0.7, 10.2333],
+                {
+}
+            ).addTo(marker_cluster_71ba615dc0966f83babfdef456b26033);
+        
+    
+            var div_icon_d1691ecbcaf13d75532adab4a4baa32b = L.divIcon({
+  "html": "\n        \u003cdiv style=\"text-align:center;\"\u003e\n\n            \u003cdiv style=\"\n                width:55px;\n                height:55px;\n                border-radius:50%;\n                overflow:hidden;\n                border:3px solid white;\n                box-shadow:0 0 8px rgba(0,0,0,0.5);\n                margin:auto;\n            \"\u003e\n\n                \u003cimg\n                    src=\"http://127.0.0.1:8000/static/photos/photo_9.png\"\n                    width=\"55\"\n                    height=\"55\"\n                    style=\"object-fit:cover;\"\u003e\n\n            \u003c/div\u003e\n\n            \u003cdiv style=\"\n                background:white;\n                padding:2px 4px;\n                border-radius:5px;\n                font-size:10px;\n                font-weight:bold;\n                margin-top:2px;\n                white-space:nowrap;\n            \"\u003e\n                ESSONO\n            \u003c/div\u003e\n\n        \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+        var popup_f9ba20661c5b0c8c12ea6f191e845483 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8312adde226800e0654f4feeae896b9d = $(`<div id="html_8312adde226800e0654f4feeae896b9d" style="width: 100.0%; height: 100.0%;">         <div style="width:220px">              <img                 src="http://127.0.0.1:8000/static/photos/photo_9.png"                 width="180"                 height="180"                 style="                     object-fit:cover;                     border-radius:10px;                     margin-bottom:10px;                 ">              <h5>                 ESSONO Mireille Nadine             </h5>              <b>Discipline :</b>             BASKETBALL             <br>              <b>Province :</b>             Moyen-Ogooué             <br>              <b>Niveau :</b>             National             <br>              <b>Date naissance :</b>             30/10/2001          </div>         </div>`)[0];
+                popup_f9ba20661c5b0c8c12ea6f191e845483.setContent(html_8312adde226800e0654f4feeae896b9d);
+            
+        
+
+        marker_1e66c69777d3265bd7351d8ad14b4904.bindPopup(popup_f9ba20661c5b0c8c12ea6f191e845483)
+        ;
+
+        
+    
+    
+                marker_1e66c69777d3265bd7351d8ad14b4904.setIcon(div_icon_d1691ecbcaf13d75532adab4a4baa32b);
+            
+    
+            marker_cluster_71ba615dc0966f83babfdef456b26033.addTo(map_a8ed4c1880cbf15f3a519fffdf10b991);
+        
+</script>
+</html>

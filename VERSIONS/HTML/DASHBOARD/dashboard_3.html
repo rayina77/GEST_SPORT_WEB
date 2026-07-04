@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    📊 Tableau de Bord
+</h2>
+
+<div class="row g-4">
+
+    <!-- ATHLETES -->
+
+    <div class="col-md-3">
+
+        <a href="/athletes"
+           class="text-decoration-none">
+
+            <div class="card shadow border-0 h-100 kpi-card">
+
+                <div class="card-body text-center">
+
+                    <h1 class="display-4 text-success">
+
+                        {{ nb_athletes }}
+
+                    </h1>
+
+                    <h5>
+
+                        Athlètes
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <!-- CLUBS -->
+
+    <div class="col-md-3">
+
+        <a href="/clubs"
+           class="text-decoration-none">
+
+            <div class="card shadow border-0 h-100 kpi-card">
+
+                <div class="card-body text-center">
+
+                    <h1 class="display-4 text-primary">
+
+                        {{ nb_clubs }}
+
+                    </h1>
+
+                    <h5>
+
+                        Clubs
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <!-- LIGUES -->
+
+    <div class="col-md-3">
+
+        <a href="/ligues"
+           class="text-decoration-none">
+
+            <div class="card shadow border-0 h-100 kpi-card">
+
+                <div class="card-body text-center">
+
+                    <h1 class="display-4 text-warning">
+
+                        {{ nb_ligues }}
+
+                    </h1>
+
+                    <h5>
+
+                        Ligues
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <!-- FEDERATIONS -->
+
+    <div class="col-md-3">
+
+        <a href="/federations"
+           class="text-decoration-none">
+
+            <div class="card shadow border-0 h-100 kpi-card">
+
+                <div class="card-body text-center">
+
+                    <h1 class="display-4 text-danger">
+
+                        {{ nb_federations }}
+
+                    </h1>
+
+                    <h5>
+
+                        Fédérations
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</div>
+
+<hr class="my-5">
+
+<div class="row">
+
+    <div class="col-md-6">
+
+        <div class="card shadow border-0">
+
+            <div class="card-body text-center">
+
+                <h3>
+
+                    👨 Hommes
+
+                </h3>
+
+                <h1 class="display-5">
+
+                    {{ hommes }}
+
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="card shadow border-0">
+
+            <div class="card-body text-center">
+
+                <h3>
+
+                    👩 Femmes
+
+                </h3>
+
+                <h1 class="display-5">
+
+                    {{ femmes }}
+
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row mt-5">
+
+    <div class="col-md-6">
+
+        <div class="card shadow border-0">
+
+            <div class="card-header">
+
+                Répartition Hommes / Femmes
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="genderChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const ctx = document.getElementById("genderChart");
+
+    new Chart(ctx, {
+
+        type: "doughnut",
+
+        data: {
+
+            labels: [
+                "Hommes",
+                "Femmes"
+            ],
+
+            datasets: [{
+
+                label: "Athlètes",
+
+                data: [
+                    {{ hommes }},
+                    {{ femmes }}
+                ],
+
+                backgroundColor: [
+                    "#0d6efd",
+                    "#dc3545"
+                ]
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false
+
+        }
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    📊 Tableau de bord GEST SPORT
+</h2>
+
+<div class="row g-4">
+
+    <div class="col-md-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h1>{{ nb_athletes }}</h1>
+
+                <h5>Athlètes</h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h1>{{ nb_clubs }}</h1>
+
+                <h5>Clubs</h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h1>{{ nb_ligues }}</h1>
+
+                <h5>Ligues</h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h1>{{ nb_federations }}</h1>
+
+                <h5>Fédérations</h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row mt-4">
+
+    <div class="col-md-6">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <h4>Répartition par sexe</h4>
+
+                <hr>
+
+                <p>
+                    👨 Hommes : <strong>{{ hommes }}</strong>
+                </p>
+
+                <p>
+                    👩 Femmes : <strong>{{ femmes }}</strong>
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

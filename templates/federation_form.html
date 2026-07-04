@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow border-0">
+
+    <div class="card-body">
+
+        <h2 class="mb-4">
+
+            {% if federation %}
+
+                ✏️ Modifier une Fédération
+
+            {% else %}
+
+                ➕ Nouvelle Fédération
+
+            {% endif %}
+
+        </h2>
+
+        {% if federation %}
+
+        <form
+                method="post"
+                action="/federations/edit/{{ federation.id }}"
+                enctype="multipart/form-data">
+
+        {% else %}
+
+        <form
+                method="post"
+                action="/federations/new"
+                enctype="multipart/form-data">
+
+        {% endif %}
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Nom de la fédération
+
+                    </label>
+
+                    <input
+                            type="text"
+                            name="nom"
+                            class="form-control"
+                            required
+                            value="{{ federation.nom if federation else '' }}">
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Discipline
+
+                    </label>
+
+                    <input
+                            type="text"
+                            name="discipline"
+                            class="form-control"
+                            required
+                            value="{{ federation.discipline if federation else '' }}">
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Province
+
+                    </label>
+
+                    <input
+                            type="text"
+                            name="province"
+                            class="form-control"
+                            value="{{ federation.province if federation else '' }}">
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Date de création
+
+                    </label>
+
+                    <input
+                            type="date"
+                            name="date_creation"
+                            class="form-control"
+                            value="{{ federation.date_creation if federation else '' }}">
+
+                </div>
+
+            </div>
+
+            <div class="mb-4">
+
+                <label class="form-label">
+
+                    Logo
+
+                </label>
+
+                <input
+                        type="file"
+                        name="logo"
+                        class="form-control"
+                        accept="image/*">
+
+            </div>
+
+            {% if federation and federation.logo %}
+
+            <div class="mb-4">
+
+                <label class="form-label">
+
+                    Logo actuel
+
+                </label>
+
+                <br>
+
+                <img
+                        src="/static/{{ federation.logo.replace('\\','/') }}"
+                        width="180"
+                        class="img-thumbnail">
+
+            </div>
+
+            {% endif %}
+
+            <hr>
+
+            <button
+                    type="submit"
+                    class="btn btn-success">
+
+                💾 Enregistrer
+
+            </button>
+
+            <a
+                    href="/federations"
+                    class="btn btn-secondary">
+
+                Annuler
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

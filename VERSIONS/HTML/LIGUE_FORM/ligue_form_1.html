@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow border-0">
+
+    <div class="card-body">
+
+        <h2 class="mb-4">
+
+            {% if ligue %}
+
+                ✏️ Modifier une Ligue
+
+            {% else %}
+
+                ➕ Nouvelle Ligue
+
+            {% endif %}
+
+        </h2>
+
+        {% if ligue %}
+
+        <form
+                method="post"
+                action="/ligues/edit/{{ ligue.id }}"
+                enctype="multipart/form-data">
+
+        {% else %}
+
+        <form
+                method="post"
+                action="/ligues/new"
+                enctype="multipart/form-data">
+
+        {% endif %}
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Nom de la ligue
+
+                    </label>
+
+                    <input
+                            type="text"
+                            name="nom"
+                            class="form-control"
+                            required
+                            value="{{ ligue.nom if ligue else '' }}">
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Discipline
+
+                    </label>
+
+                    <input
+                            type="text"
+                            name="discipline"
+                            class="form-control"
+                            required
+                            value="{{ ligue.discipline if ligue else '' }}">
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Province
+
+                    </label>
+
+                    <input
+                            type="text"
+                            name="province"
+                            class="form-control"
+                            value="{{ ligue.province if ligue else '' }}">
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Date de création
+
+                    </label>
+
+                    <input
+                            type="date"
+                            name="date_creation"
+                            class="form-control"
+                            value="{{ ligue.date_creation if ligue else '' }}">
+
+                </div>
+
+            </div>
+
+            <div class="mb-4">
+
+                <label class="form-label">
+
+                    Logo
+
+                </label>
+
+                <input
+                        type="file"
+                        name="logo"
+                        class="form-control"
+                        accept="image/*">
+
+            </div>
+
+            {% if ligue and ligue.logo %}
+
+            <div class="mb-4">
+
+                <label class="form-label">
+
+                    Logo actuel
+
+                </label>
+
+                <br>
+
+                <img
+                        src="/static/{{ ligue.logo.replace('\\','/') }}"
+                        width="180"
+                        class="img-thumbnail">
+
+            </div>
+
+            {% endif %}
+
+            <hr>
+
+            <button
+                    type="submit"
+                    class="btn btn-success">
+
+                💾 Enregistrer
+
+            </button>
+
+            <a
+                    href="/ligues"
+                    class="btn btn-secondary">
+
+                Annuler
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

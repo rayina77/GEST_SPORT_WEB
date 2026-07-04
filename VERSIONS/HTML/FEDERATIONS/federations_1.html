@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow border-0">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h2 class="mb-0">
+                🎖 Gestion des Fédérations
+            </h2>
+
+            <a href="/"
+               class="btn btn-secondary">
+                Retour
+            </a>
+
+        </div>
+
+        <!-- RECHERCHE -->
+
+        <form method="get"
+              action="/federations"
+              class="mb-4">
+
+            <div class="input-group">
+
+                <input
+                        type="text"
+                        class="form-control"
+                        name="search"
+                        placeholder="Nom, discipline ou province..."
+                        value="{{ search }}">
+
+                <button
+                        class="btn btn-success"
+                        type="submit">
+
+                    🔍 Rechercher
+
+                </button>
+
+            </div>
+
+        </form>
+
+        <!-- TABLEAU -->
+
+        <div class="table-responsive">
+
+            <table class="table table-hover table-bordered align-middle">
+
+                <thead class="table-success">
+
+                <tr>
+
+                    <th>Logo</th>
+
+                    <th>ID</th>
+
+                    <th>Fédération</th>
+
+                    <th>Discipline</th>
+
+                    <th>Province</th>
+
+                    <th>Clubs</th>
+
+                    <th>Athlètes</th>
+
+                    <th>Date Création</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% if federations %}
+
+                    {% for federation in federations %}
+
+                    <tr>
+
+                        <td width="90">
+
+                            {% if federation.logo %}
+
+                            <img
+                                    src="/static/{{ federation.logo.replace('\\', '/') }}"
+                                    width="70"
+                                    height="70"
+                                    class="rounded border"
+                                    style="object-fit:cover;">
+
+                            {% else %}
+
+                            <span class="text-muted">
+                                Aucun logo
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>{{ federation.id }}</td>
+
+                        <td>{{ federation.nom }}</td>
+
+                        <td>{{ federation.discipline }}</td>
+
+                        <td>{{ federation.province }}</td>
+
+                        <td>
+
+                            <span class="badge bg-primary">
+
+                                {{ federation.nb_clubs }}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <span class="badge bg-success">
+
+                                {{ federation.nb_athletes }}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            {{ federation.date_creation or "-" }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="8"
+                            class="text-center text-muted">
+
+                            Aucune fédération trouvée
+
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- PAGINATION -->
+
+        {% if total_pages > 1 %}
+
+        <nav class="mt-4">
+
+            <ul class="pagination justify-content-center">
+
+                {% for p in range(1, total_pages + 1) %}
+
+                <li class="page-item {% if p == page %}active{% endif %}">
+
+                    <a
+                            class="page-link"
+                            href="/federations?page={{ p }}&search={{ search }}">
+
+                        {{ p }}
+
+                    </a>
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </nav>
+
+        {% endif %}
+
+        <div class="text-center text-muted mt-3">
+
+            Nombre de fédérations affichées :
+            <strong>{{ federations|length }}</strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

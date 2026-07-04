@@ -1,0 +1,345 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow border-0">
+
+    <div class="card-body">
+
+        {% if success == "added" %}
+
+<div id="success-alert"
+     class="alert alert-success alert-dismissible fade show">
+
+    ✅ Athlète ajouté avec succès.
+
+    <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert">
+    </button>
+
+</div>
+
+{% endif %}
+
+{% if success == "updated" %}
+
+<div id="success-alert"
+     class="alert alert-warning alert-dismissible fade show">
+
+    ✏ Athlète modifié avec succès.
+
+    <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert">
+    </button>
+
+</div>
+
+{% endif %}
+
+{% if success == "deleted" %}
+
+<div id="success-alert"
+     class="alert alert-danger alert-dismissible fade show">
+
+    🗑 Athlète supprimé avec succès.
+
+    <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert">
+    </button>
+
+</div>
+
+{% endif %}
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h2 class="mb-0">
+                👤 Gestion des Athlètes
+            </h2>
+
+            <div>
+
+                <a href="/athletes/new"
+                   class="btn btn-success">
+
+                    ➕ Nouvel Athlète
+
+                </a>
+
+                <a href="/"
+                   class="btn btn-secondary">
+
+                    Retour
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- RECHERCHE -->
+
+        <form method="get"
+              action="/athletes"
+              class="mb-4">
+
+            <div class="input-group">
+
+                <input
+                        type="text"
+                        class="form-control"
+                        name="search"
+                        placeholder="Nom, prénom, discipline ou province..."
+                        value="{{ search }}">
+
+                <button
+                        class="btn btn-success"
+                        type="submit">
+
+                    🔍 Rechercher
+
+                </button>
+
+            </div>
+
+        </form>
+
+        <!-- TABLEAU -->
+
+        <div class="table-responsive">
+
+            <table class="table table-hover table-bordered align-middle">
+
+                <thead class="table-success">
+
+                <tr>
+
+                    <th>Photo</th>
+
+                    <th>ID</th>
+
+                    <th>Nom</th>
+
+                    <th>Prénom</th>
+
+                    <th>Sexe</th>
+
+                    <th>Discipline</th>
+
+                    <th>Catégorie</th>
+
+                    <th>Club</th>
+
+                    <th>Province</th>
+
+                    <th>Niveau</th>
+
+                    <th>Date Naissance</th>
+
+                    <th>Date Création</th>
+
+                    <th width="220">Actions</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% if athletes %}
+
+                    {% for athlete in athletes %}
+
+                    <tr>
+
+                        <td width="90">
+
+                            {% if athlete.photo %}
+
+                            <img
+                                    src="/static/{{ athlete.photo.replace('\\', '/') }}"
+                                    width="70"
+                                    height="70"
+                                    class="rounded border"
+                                    style="object-fit: cover;">
+
+                            {% else %}
+
+                            <span class="text-muted">
+                                Aucune photo
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>{{ athlete.id }}</td>
+
+                        <td>{{ athlete.nom }}</td>
+
+                        <td>{{ athlete.prenom }}</td>
+
+                        <td>{{ athlete.sexe }}</td>
+
+                        <td>{{ athlete.discipline }}</td>
+
+                        <td>{{ athlete.categorie or '-' }}</td>
+
+                        <td>{{ athlete.club_nom or '-' }}</td>
+
+                        <td>{{ athlete.province }}</td>
+
+                        <td>{{ athlete.niveau }}</td>
+
+                        <td>{{ athlete.date_naissance }}</td>
+
+                        <td>
+                            {{ athlete.date_creation[:10] if athlete.date_creation else "-" }}
+                        </td>
+
+                        <td>
+
+                            <div class="d-flex gap-2">
+
+                                <a href="/athletes/edit/{{ athlete.id }}"
+                                   class="btn btn-warning btn-sm">
+
+                                    ✏ Modifier
+
+                                </a>
+
+                                <form method="post"
+                                      action="/athletes/delete/{{ athlete.id }}"
+                                      style="display:inline;">
+
+                                    <button
+                                            type="submit"
+                                            class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Voulez-vous vraiment supprimer cet athlète ?');">
+
+                                        🗑 Supprimer
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="13"
+                            class="text-center text-muted">
+
+                            Aucun athlète trouvé
+
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- PAGINATION -->
+
+        {% if total_pages > 1 %}
+
+        <nav class="mt-4">
+
+            <ul class="pagination justify-content-center">
+
+                {% for p in range(1, total_pages + 1) %}
+
+                <li class="page-item {% if p == page %}active{% endif %}">
+
+                    <a
+                            class="page-link"
+                            href="/athletes?page={{ p }}&search={{ search }}">
+
+                        {{ p }}
+
+                    </a>
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </nav>
+
+        {% endif %}
+
+        <!-- STATISTIQUES -->
+
+        <div class="mt-3 text-muted text-center">
+
+            Nombre d'athlètes affichés :
+            <strong>{{ athletes|length }}</strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function()
+    {
+        const alertBox =
+            document.getElementById(
+                "success-alert"
+            );
+
+        if(alertBox)
+        {
+            setTimeout(
+                function()
+                {
+                    alertBox.classList.remove(
+                        "show"
+                    );
+
+                    alertBox.classList.add(
+                        "fade"
+                    );
+
+                    setTimeout(
+                        function()
+                        {
+                            alertBox.remove();
+                        },
+                        500
+                    );
+
+                },
+                4000
+            );
+        }
+    }
+);
+
+</script>
+
+{% endblock %}

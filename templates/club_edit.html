@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow border-0">
+
+        <div class="card-body">
+
+            <h2 class="mb-4">
+                ✏ Modifier un club
+            </h2>
+
+            <form method="post"
+                  action="/clubs/edit/{{ club.id }}">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Nom du club
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nom"
+                            class="form-control"
+                            value="{{ club.nom }}"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Discipline
+                        </label>
+
+                        <input
+                            type="text"
+                            name="discipline"
+                            class="form-control"
+                            value="{{ club.discipline }}"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Genre
+                        </label>
+
+                        <input
+                            type="text"
+                            name="genre"
+                            class="form-control"
+                            value="{{ club.genre }}">
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Catégorie
+                        </label>
+
+                        <input
+                            type="text"
+                            name="categorie"
+                            class="form-control"
+                            value="{{ club.categorie }}">
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Ville
+                        </label>
+
+                        <input
+                            type="text"
+                            name="ville"
+                            class="form-control"
+                            value="{{ club.ville }}">
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Province
+                        </label>
+
+                        <input
+                            type="text"
+                            name="province"
+                            class="form-control"
+                            value="{{ club.province }}">
+
+                    </div>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-warning">
+
+                    💾 Enregistrer
+
+                </button>
+
+                <a href="/clubs"
+                   class="btn btn-secondary">
+
+                    Annuler
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

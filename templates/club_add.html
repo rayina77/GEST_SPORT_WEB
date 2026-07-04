@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow border-0">
+
+        <div class="card-body">
+
+            <h2 class="mb-4">
+                ➕ Nouveau Club
+            </h2>
+
+            <form method="post"
+                  action="/clubs/add">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Nom du club
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nom"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Discipline
+                        </label>
+
+                        <input
+                            type="text"
+                            name="discipline"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+                            Genre
+                        </label>
+
+                        <select
+                            name="genre"
+                            class="form-select"
+                            required>
+
+                            <option value="">
+                                Sélectionner
+                            </option>
+
+                            <option value="Masculin">
+                                Masculin
+                            </option>
+
+                            <option value="Féminin">
+                                Féminin
+                            </option>
+
+                            <option value="Mixte">
+                                Mixte
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+                            Catégorie
+                        </label>
+
+                        <input
+                            type="text"
+                            name="categorie"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+                            Ville
+                        </label>
+
+                        <input
+                            type="text"
+                            name="ville"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Province
+                        </label>
+
+                        <input
+                            type="text"
+                            name="province"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <button
+                    type="submit"
+                    class="btn btn-success">
+
+                    💾 Enregistrer
+
+                </button>
+
+                <a href="/clubs"
+                   class="btn btn-secondary">
+
+                    ↩ Retour
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

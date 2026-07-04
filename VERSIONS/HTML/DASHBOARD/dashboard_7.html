@@ -1,0 +1,504 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    📊 Tableau de Bord
+</h2>
+
+<!-- KPI -->
+
+<div class="row g-4">
+
+    <!-- ATHLETES -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <a href="/athletes"
+           class="text-decoration-none">
+
+            <div class="card shadow border-0 h-100 kpi-card">
+
+                <div class="card-body text-center">
+
+                    <div class="kpi-icon kpi-green">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+
+                    <h1 class="display-5 text-success fw-bold">
+                        {{ nb_athletes }}
+                    </h1>
+
+                    <h5 class="text-dark">
+                        Athlètes
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <!-- CLUBS -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <a href="/clubs"
+           class="text-decoration-none">
+
+            <div class="card shadow border-0 h-100 kpi-card">
+
+                <div class="card-body text-center">
+
+                    <div class="kpi-icon kpi-blue">
+                        <i class="bi bi-shield-fill"></i>
+                    </div>
+
+                    <h1 class="display-5 text-primary fw-bold">
+                        {{ nb_clubs }}
+                    </h1>
+
+                    <h5 class="text-dark">
+                        Clubs
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <!-- LIGUES -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <a href="/ligues"
+           class="text-decoration-none">
+
+            <div class="card shadow border-0 h-100 kpi-card">
+
+                <div class="card-body text-center">
+
+                    <div class="kpi-icon kpi-yellow">
+                        <i class="bi bi-diagram-3-fill"></i>
+                    </div>
+
+                    <h1 class="display-5 text-warning fw-bold">
+                        {{ nb_ligues }}
+                    </h1>
+
+                    <h5 class="text-dark">
+                        Ligues
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <!-- FEDERATIONS -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <a href="/federations"
+           class="text-decoration-none">
+
+            <div class="card shadow border-0 h-100 kpi-card">
+
+                <div class="card-body text-center">
+
+                    <div class="kpi-icon kpi-red">
+                        <i class="bi bi-trophy-fill"></i>
+                    </div>
+
+                    <h1 class="display-5 text-danger fw-bold">
+                        {{ nb_federations }}
+                    </h1>
+
+                    <h5 class="text-dark">
+                        Fédérations
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</div>
+
+<!-- KPI HOMMES / FEMMES -->
+
+<div class="row mt-5 g-4">
+
+    <div class="col-md-6">
+
+        <div class="card shadow border-0">
+
+            <div class="card-body text-center">
+
+                <div class="kpi-icon kpi-blue">
+                    <i class="bi bi-gender-male"></i>
+                </div>
+
+                <h3>
+                    Hommes
+                </h3>
+
+                <h1 class="display-5 fw-bold">
+                    {{ hommes }}
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="card shadow border-0">
+
+            <div class="card-body text-center">
+
+                <div class="kpi-icon kpi-red">
+                    <i class="bi bi-gender-female"></i>
+                </div>
+
+                <h3>
+                    Femmes
+                </h3>
+
+                <h1 class="display-5 fw-bold">
+                    {{ femmes }}
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- GRAPHIQUE -->
+
+<div class="row mt-5">
+
+    <div class="col-lg-8">
+
+        <div class="card shadow border-0">
+
+            <div class="card-header fw-bold">
+
+                Répartition Hommes / Femmes
+
+            </div>
+
+            <div class="card-body">
+
+                <div style="height:400px;">
+
+                    <canvas id="genderChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-lg-4">
+
+    <div class="card shadow border-0">
+
+        <div class="card-header fw-bold">
+
+            📈 Athlètes par Discipline
+
+        </div>
+
+        <div class="card-body">
+
+            <div style="height:400px;">
+
+                <canvas id="disciplineChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row mt-4">
+
+    <div class="col-12">
+
+        <div class="card shadow border-0">
+
+            <div class="card-header fw-bold">
+
+                🗺️ Athlètes par Province
+
+            </div>
+
+            <div class="card-body">
+
+                <div style="height:450px;">
+
+                    <canvas id="provinceChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const hommes = {{ hommes }};
+    const femmes = {{ femmes }};
+
+    const total = hommes + femmes;
+
+    const ctx =
+        document.getElementById("genderChart");
+
+    new Chart(ctx, {
+
+        type: "doughnut",
+
+        data: {
+
+            labels: [
+
+                `Hommes (${((hommes / total) * 100).toFixed(1)}%)`,
+                `Femmes (${((femmes / total) * 100).toFixed(1)}%)`
+
+            ],
+
+            datasets: [{
+
+                data: [
+                    hommes,
+                    femmes
+                ],
+
+                backgroundColor: [
+                    "#0d6efd",
+                    "#dc3545"
+                ],
+
+                borderWidth: 2
+
+            }]
+
+        },
+
+        plugins: [ChartDataLabels],
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            cutout: "45%",
+
+            plugins: {
+
+                legend: {
+
+                    position: "bottom"
+
+                },
+
+                tooltip: {
+
+                    callbacks: {
+
+                        label: function(context) {
+
+                            let value = context.raw;
+
+                            let percentage =
+                                ((value / total) * 100)
+                                .toFixed(1);
+
+                            return value +
+                                   " (" +
+                                   percentage +
+                                   "%)";
+
+                        }
+
+                    }
+
+                },
+
+                datalabels: {
+
+                    color: "#ffffff",
+
+                    font: {
+
+                        weight: "bold",
+                        size: 16
+
+                    },
+
+                    formatter: function(value) {
+
+                        let percentage =
+                            ((value / total) * 100)
+                            .toFixed(1);
+
+                        return percentage + "%";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    });
+
+    const disciplineCtx =
+    document.getElementById("disciplineChart");
+
+new Chart(disciplineCtx, {
+
+    type: "bar",
+
+    data: {
+
+        labels: {{ discipline_labels|tojson }},
+
+        datasets: [{
+
+            label: "Athlètes",
+
+            data: {{ discipline_values|tojson }},
+
+            backgroundColor: "#198754",
+
+            borderRadius: 8
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        plugins: {
+
+            legend: {
+
+                display: false
+
+            }
+
+        },
+
+        scales: {
+
+            y: {
+
+                beginAtZero: true
+
+            }
+
+        }
+
+    }
+
+});
+
+const provinceCtx =
+    document.getElementById("provinceChart");
+
+new Chart(provinceCtx, {
+
+    type: "bar",
+
+    data: {
+
+        labels: {{ province_labels|tojson }},
+
+        datasets: [{
+
+            label: "Athlètes",
+
+            data: {{ province_values|tojson }},
+
+            backgroundColor: "#0dcaf0",
+
+            borderRadius: 8
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        indexAxis: 'y',
+
+        plugins: {
+
+            legend: {
+
+                display: false
+
+            }
+
+        },
+
+        scales: {
+
+            x: {
+
+                beginAtZero: true
+
+            }
+
+        }
+
+    }
+
+});
+
+});
+
+</script>
+
+{% endblock %}

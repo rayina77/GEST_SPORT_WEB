@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow border-0">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h2 class="mb-0">
+                🏛 Gestion des Ligues
+            </h2>
+
+            <a href="/"
+               class="btn btn-secondary">
+                Retour
+            </a>
+
+        </div>
+
+        <!-- RECHERCHE -->
+
+        <form method="get"
+              action="/ligues"
+              class="mb-4">
+
+            <div class="input-group">
+
+                <input
+                        type="text"
+                        class="form-control"
+                        name="search"
+                        placeholder="Nom, discipline ou province..."
+                        value="{{ search }}">
+
+                <button
+                        class="btn btn-success"
+                        type="submit">
+
+                    🔍 Rechercher
+
+                </button>
+
+            </div>
+
+        </form>
+
+        <!-- TABLEAU -->
+
+        <div class="table-responsive">
+
+            <table class="table table-hover table-bordered align-middle">
+
+                <thead class="table-success">
+
+                <tr>
+
+                    <th>Logo</th>
+
+                    <th>ID</th>
+
+                    <th>Ligue</th>
+
+                    <th>Discipline</th>
+
+                    <th>Province</th>
+
+                    <th>Clubs</th>
+
+                    <th>Date Création</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% if ligues %}
+
+                    {% for ligue in ligues %}
+
+                    <tr>
+
+                        <td width="90">
+
+                            {% if ligue.logo %}
+
+                            <img
+                                    src="/static/{{ ligue.logo.replace('\\', '/') }}"
+                                    width="70"
+                                    height="70"
+                                    class="rounded border"
+                                    style="object-fit:cover;">
+
+                            {% else %}
+
+                            <span class="text-muted">
+                                Aucun logo
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>{{ ligue.id }}</td>
+
+                        <td>{{ ligue.nom }}</td>
+
+                        <td>{{ ligue.discipline }}</td>
+
+                        <td>{{ ligue.province }}</td>
+
+                        <td>
+
+                            <span class="badge bg-primary">
+
+                                {{ ligue.nb_clubs }}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            {{ ligue.date_creation or "-" }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="7"
+                            class="text-center text-muted">
+
+                            Aucune ligue trouvée
+
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- PAGINATION -->
+
+        {% if total_pages > 1 %}
+
+        <nav class="mt-4">
+
+            <ul class="pagination justify-content-center">
+
+                {% for p in range(1, total_pages + 1) %}
+
+                <li class="page-item {% if p == page %}active{% endif %}">
+
+                    <a
+                            class="page-link"
+                            href="/ligues?page={{ p }}&search={{ search }}">
+
+                        {{ p }}
+
+                    </a>
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </nav>
+
+        {% endif %}
+
+        <div class="text-center text-muted mt-3">
+
+            Nombre de ligues affichées :
+            <strong>{{ ligues|length }}</strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

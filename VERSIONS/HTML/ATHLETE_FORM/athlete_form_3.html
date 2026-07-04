@@ -1,0 +1,277 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow border-0">
+
+    <div class="card-body">
+
+        <h2 class="mb-4">
+
+            {% if athlete %}
+                ✏ Modifier Athlète
+            {% else %}
+                ➕ Nouvel Athlète
+            {% endif %}
+
+        </h2>
+
+        <form method="post"
+              enctype="multipart/form-data">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Nom
+                    </label>
+
+                    <input
+                        type="text"
+                        name="nom"
+                        class="form-control"
+                        value="{{ athlete.nom if athlete else '' }}"
+                        required>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Prénom
+                    </label>
+
+                    <input
+                        type="text"
+                        name="prenom"
+                        class="form-control"
+                        value="{{ athlete.prenom if athlete else '' }}"
+                        required>
+
+                </div>
+
+                <div class="col-md-3 mb-3">
+
+                    <label class="form-label">
+                        Sexe
+                    </label>
+
+                    <select
+                        name="sexe"
+                        class="form-select">
+
+                        <option value="H"
+                            {% if athlete and athlete.sexe == "H" %}
+                                selected
+                            {% endif %}>
+                            Homme
+                        </option>
+
+                        <option value="F"
+                            {% if athlete and athlete.sexe == "F" %}
+                                selected
+                            {% endif %}>
+                            Femme
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-3 mb-3">
+
+                    <label class="form-label">
+                        Discipline
+                    </label>
+
+                    <input
+                        type="text"
+                        name="discipline"
+                        class="form-control"
+                        value="{{ athlete.discipline if athlete else '' }}">
+
+                </div>
+
+                <div class="col-md-3 mb-3">
+
+                    <label class="form-label">
+                        Catégorie
+                    </label>
+
+                    <input
+                        type="text"
+                        name="categorie"
+                        class="form-control"
+                        value="{{ athlete.categorie if athlete else '' }}">
+
+                </div>
+
+                <div class="col-md-3 mb-3">
+
+                    <label class="form-label">
+                        Niveau
+                    </label>
+
+                    <input
+                        type="text"
+                        name="niveau"
+                        class="form-control"
+                        value="{{ athlete.niveau if athlete else '' }}">
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Club
+                    </label>
+
+                    <select
+                        name="club_id"
+                        class="form-select">
+
+                        {% for club in clubs %}
+
+                        <option
+                            value="{{ club.id }}"
+                            {% if athlete and athlete.club_id == club.id %}
+                                selected
+                            {% endif %}>
+
+                            {{ club.nom }}
+
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Province
+                    </label>
+
+                    <input
+                        type="text"
+                        name="province"
+                        class="form-control"
+                        value="{{ athlete.province if athlete else '' }}">
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Date de naissance
+                    </label>
+
+                    <input
+                        type="text"
+                        name="date_naissance"
+                        class="form-control"
+                        value="{{ athlete.date_naissance if athlete else '' }}">
+
+                </div>
+
+                <!-- PHOTO -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Photo
+                    </label>
+
+                    <input
+                            type="file"
+                            name="photo"
+                            id="photo"
+                            class="form-control"
+                            accept="image/*"
+                            onchange="previewPhoto(event)">
+
+                </div>
+
+                <!-- APERCU -->
+
+                <div class="col-md-6 mb-3 text-center">
+
+                    <label class="form-label d-block">
+                        Aperçu
+                    </label>
+
+                    {% if athlete and athlete.photo %}
+
+                    <img
+                            id="preview"
+                            src="/static/{{ athlete.photo.replace('\\','/') }}"
+                            width="180"
+                            height="180"
+                            class="rounded border shadow"
+                            style="object-fit:cover;">
+
+                    {% else %}
+
+                    <img
+                            id="preview"
+                            src="https://via.placeholder.com/180x180?text=Photo"
+                            width="180"
+                            height="180"
+                            class="rounded border shadow"
+                            style="object-fit:cover;">
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <button
+                type="submit"
+                class="btn btn-success">
+
+                💾 Enregistrer
+
+            </button>
+
+            <a href="/athletes"
+               class="btn btn-secondary">
+
+                Annuler
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+function previewPhoto(event)
+{
+    const reader = new FileReader();
+
+    reader.onload = function()
+    {
+        document.getElementById("preview").src =
+            reader.result;
+    }
+
+    if(event.target.files.length > 0)
+    {
+        reader.readAsDataURL(
+            event.target.files[0]
+        );
+    }
+}
+
+</script>
+
+{% endblock %}

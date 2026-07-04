@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow border-0">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h2>
+                🏆 Gestion des Clubs
+            </h2>
+
+            <a href="/"
+               class="btn btn-secondary">
+
+                Retour
+
+            </a>
+
+        </div>
+
+        <!-- RECHERCHE -->
+
+        <form method="get"
+              action="/clubs"
+              class="mb-4">
+
+            <div class="input-group">
+
+                <input
+                        type="text"
+                        class="form-control"
+                        name="search"
+                        placeholder="Nom, discipline, ville ou province..."
+                        value="{{ search }}">
+
+                <button
+                        class="btn btn-success">
+
+                    🔍 Rechercher
+
+                </button>
+
+            </div>
+
+        </form>
+
+        <!-- TABLEAU -->
+
+        <div class="table-responsive">
+
+            <table class="table table-hover table-bordered align-middle">
+
+                <thead class="table-success">
+
+                <tr>
+
+                    <th>Logo</th>
+
+                    <th>ID</th>
+
+                    <th>Club</th>
+
+                    <th>Discipline</th>
+
+                    <th>Genre</th>
+
+                    <th>Catégorie</th>
+
+                    <th>Ville</th>
+
+                    <th>Province</th>
+
+                    <th>Athlètes</th>
+
+                    <th>Date Création</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% if clubs %}
+
+                    {% for club in clubs %}
+
+                    <tr>
+
+                        <td width="90">
+
+                            {% if club.logo %}
+
+                            <img
+                                    src="/static/{{ club.logo.replace('\\','/') }}"
+                                    width="70"
+                                    height="70"
+                                    class="rounded border"
+                                    style="object-fit:cover;">
+
+                            {% else %}
+
+                            <span class="text-muted">
+
+                                Aucun logo
+
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>{{ club.id }}</td>
+
+                        <td>{{ club.nom }}</td>
+
+                        <td>{{ club.discipline }}</td>
+
+                        <td>{{ club.genre }}</td>
+
+                        <td>{{ club.categorie }}</td>
+
+                        <td>{{ club.ville }}</td>
+
+                        <td>{{ club.province }}</td>
+
+                        <td>
+
+                            <span class="badge bg-primary">
+
+                                {{ club.nb_athletes }}
+
+                            </span>
+
+                        </td>
+
+                        <td>{{ club.date_creation }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="10"
+                            class="text-center text-muted">
+
+                            Aucun club trouvé
+
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- PAGINATION -->
+
+        {% if total_pages > 1 %}
+
+        <nav class="mt-4">
+
+            <ul class="pagination justify-content-center">
+
+                {% for p in range(1, total_pages + 1) %}
+
+                <li class="page-item {% if p == page %}active{% endif %}">
+
+                    <a
+                            class="page-link"
+                            href="/clubs?page={{ p }}&search={{ search }}">
+
+                        {{ p }}
+
+                    </a>
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </nav>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
