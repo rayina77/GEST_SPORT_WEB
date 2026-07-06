@@ -26,9 +26,7 @@ class PostgresConnection:
         en remplaçant ? par %s.
         """
 
-        cursor = self.conn.cursor(
-            cursor_factory=psycopg2.extras.RealDictCursor
-        )
+        cursor = self.conn.cursor()
 
         query = query.replace("?", "%s")
 
