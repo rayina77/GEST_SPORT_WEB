@@ -2111,18 +2111,26 @@ async def delete_federation(federation_id: int):
         status_code=303
     )
 
+from fastapi.responses import FileResponse
+from datetime import datetime
+import os
+import folium
+from folium.plugins import MarkerCluster
+
+
 @app.get("/carte")
 async def carte_gabon():
 
     conn = get_connection()
 
-    athletes = conn.execute(
-        """
+    athletes = conn.execute("""
         SELECT
             nom,
             prenom,
             discipline,
+            club,
             province,
+            sexe,
             niveau,
             date_naissance,
             photo,
@@ -2130,23 +2138,21 @@ async def carte_gabon():
             longitude
         FROM athletes
         WHERE latitude IS NOT NULL
-          AND longitude IS NOT NULL
-        """
-    ).fetchall()
+        AND longitude IS NOT NULL
+    """).fetchall()
 
     conn.close()
 
-    import folium
-    from folium.plugins import MarkerCluster
-
     gabon_map = folium.Map(
         location=[-0.7, 11.6],
-        zoom_start=6
+        zoom_start=6,
+        tiles="OpenStreetMap"
     )
 
-    marker_cluster = MarkerCluster().add_to(
-        gabon_map
-    )
+    marker_cluster = MarkerCluster().add_to(gabon_map)
+
+    # URL de base (fonctionne sur Render)
+    BASE_URL = ""
 
     for athlete in athletes:
 
@@ -2156,103 +2162,190 @@ async def carte_gabon():
 
         photo = athlete["photo"]
 
-        if photo:
-            photo_url = f"http://127.0.0.1:8000/static/{photo}"
+        if photo and photo.strip():
+            photo = photo.replace("\\", "/")
+
+            if photo.startswith("static/"):
+                photo = photo[7:]
+
+            photo_url = f"/static/{photo}"
+
         else:
-            photo_url = (
-                "http://127.0.0.1:8000/static/photos/default.png"
-            )
+            photo_url = "/static/photos/default.png"
+
+        # ==========================
+        # AGE
+        # ==========================
+
+        age = ""
+
+        try:
+
+            naissance = athlete["date_naissance"]
+
+            if naissance:
+
+                if "/" in naissance:
+
+                    d = datetime.strptime(
+                        naissance,
+                        "%d/%m/%Y"
+                    )
+
+                else:
+
+                    d = datetime.strptime(
+                        naissance[:10],
+                        "%Y-%m-%d"
+                    )
+
+                age = (
+                    datetime.today().year
+                    - d.year
+                    - (
+                        (datetime.today().month,
+                         datetime.today().day)
+                        <
+                        (d.month, d.day)
+                    )
+                )
+
+        except:
+
+            age = ""
 
         # ==========================
         # POPUP
         # ==========================
 
         popup_html = f"""
-        <div style="width:220px">
+<div class="card border-0 shadow" style="width:280px;">
 
-            <img
-                src="{photo_url}"
-                width="180"
-                height="180"
-                style="
-                    object-fit:cover;
-                    border-radius:10px;
-                    margin-bottom:10px;
-                ">
+    <div class="text-center p-3">
 
-            <h5>
-                {athlete['nom']} {athlete['prenom']}
-            </h5>
+        <img
+            src="{photo_url}"
+            style="
+                width:140px;
+                height:140px;
+                object-fit:cover;
+                border-radius:50%;
+                border:5px solid #0d6efd;
+                box-shadow:0px 0px 10px rgba(0,0,0,.25);
+            ">
 
-            <b>Discipline :</b>
-            {athlete['discipline']}
-            <br>
+        <h4 class="mt-3 mb-0">
+            <b>{athlete["nom"]} {athlete["prenom"]}</b>
+        </h4>
 
-            <b>Province :</b>
-            {athlete['province']}
-            <br>
+    </div>
 
-            <b>Niveau :</b>
-            {athlete['niveau']}
-            <br>
+    <div class="card-body p-3">
 
-            <b>Date naissance :</b>
-            {athlete['date_naissance']}
+        <table class="table table-sm">
 
-        </div>
-        """
+            <tr>
+                <th>🏅 Discipline</th>
+                <td>{athlete["discipline"] or ""}</td>
+            </tr>
+
+            <tr>
+                <th>🏟 Club</th>
+                <td>{athlete["club"] or ""}</td>
+            </tr>
+
+            <tr>
+                <th>📍 Province</th>
+                <td>{athlete["province"] or ""}</td>
+            </tr>
+
+            <tr>
+                <th>👤 Sexe</th>
+                <td>{athlete["sexe"] or ""}</td>
+            </tr>
+
+            <tr>
+                <th>🎂 Âge</th>
+                <td>{age} ans</td>
+            </tr>
+
+            <tr>
+                <th>⭐ Niveau</th>
+                <td>
+
+                    <span style="
+                        background:#0d6efd;
+                        color:white;
+                        padding:4px 10px;
+                        border-radius:20px;
+                        font-size:12px;
+                    ">
+                        {athlete["niveau"] or ""}
+                    </span>
+
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+"""
 
         # ==========================
-        # PHOTO COMME MARQUEUR
+        # PHOTO DU MARQUEUR
         # ==========================
 
         icon_html = f"""
-        <div style="text-align:center;">
+<div style="text-align:center;">
 
-            <div style="
-                width:55px;
-                height:55px;
-                border-radius:50%;
-                overflow:hidden;
-                border:3px solid white;
-                box-shadow:0 0 8px rgba(0,0,0,0.5);
-                margin:auto;
+    <div style="
+        width:60px;
+        height:60px;
+        border-radius:50%;
+        overflow:hidden;
+        border:4px solid white;
+        box-shadow:0px 2px 10px rgba(0,0,0,.45);
+    ">
+
+        <img
+            src="{photo_url}"
+            style="
+                width:60px;
+                height:60px;
+                object-fit:cover;
             ">
 
-                <img
-                    src="{photo_url}"
-                    width="55"
-                    height="55"
-                    style="object-fit:cover;">
+    </div>
 
-            </div>
+    <div style="
+        margin-top:4px;
+        background:white;
+        border-radius:15px;
+        padding:2px 8px;
+        font-size:11px;
+        font-weight:bold;
+        box-shadow:0px 0px 6px rgba(0,0,0,.3);
+        white-space:nowrap;
+    ">
+        {athlete["nom"]}
+    </div>
 
-            <div style="
-                background:white;
-                padding:2px 4px;
-                border-radius:5px;
-                font-size:10px;
-                font-weight:bold;
-                margin-top:2px;
-                white-space:nowrap;
-            ">
-                {athlete["nom"]}
-            </div>
-
-        </div>
-        """
+</div>
+"""
 
         folium.Marker(
-            [
+            location=[
                 athlete["latitude"],
                 athlete["longitude"]
             ],
-            icon=folium.DivIcon(
-                html=icon_html
-            ),
             popup=folium.Popup(
                 popup_html,
-                max_width=300
+                max_width=320
+            ),
+            icon=folium.DivIcon(
+                html=icon_html
             )
         ).add_to(marker_cluster)
 
