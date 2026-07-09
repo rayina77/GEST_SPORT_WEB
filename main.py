@@ -2162,16 +2162,15 @@ async def carte_gabon():
 
         photo = athlete["photo"]
 
-        if photo and photo.strip():
+        if photo:
+
             photo = photo.replace("\\", "/")
 
-            if photo.startswith("static/"):
-                photo = photo[7:]
-
-            photo_url = f"/static/{photo}"
+            photo_url = f"{BASE_URL}/static/{photo}"
 
         else:
-            photo_url = "/static/photos/default.png"
+
+            photo_url = f"{BASE_URL}/static/photos/default.png"
 
         # ==========================
         # AGE
